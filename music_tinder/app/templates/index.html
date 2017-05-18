@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="tindero">
+  {% if user %}
+  <img src="{{ user.userprofile.photo.url }}">
+  <div class="name">
+    {{ user.username }}
+  </div>
+  <div class="bio">{{ user.userprofile.bio }}</div>
+  <a href="{% url "nice" user_id=user.id %}">
+    Nice
+  </a>
+  <a href="{% url "nope" user_id=user.id %}">
+    Nope
+  </a>
+  {% else %}
+  Wait for more people to join!
+  {% endif %}
+</div>
+{% endblock %}
+

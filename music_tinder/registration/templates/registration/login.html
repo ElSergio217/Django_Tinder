@@ -1,6 +1,5 @@
-<!doctype html>
-<html>
-<body>
+{% extends "base.html" %}
+{% block content %}
 <form action="{% url "login" %}" method="post">
   {% csrf_token %}
   <h2>Login</h2>
@@ -10,6 +9,4 @@
       Login
     </button>
   </p>
-</form>
-</body>
-</html>
+{% endblock %}
