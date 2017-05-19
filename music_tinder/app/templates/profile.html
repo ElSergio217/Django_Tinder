@@ -4,7 +4,12 @@
 <form action="{% url "profile" %}" method="post"
   enctype="multipart/form-data">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ user.photo }}<br>
+  {{ user.bio }}<br>
+  {{ info.first_name }}<br>
+  {{ info.last_name }}<br>
+  {{ info.email }}<br>
+  {{ info.username }}<br>
   <p>
     <button type="submit">
       Save

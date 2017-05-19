@@ -19,7 +19,6 @@ def index(request):
 		bio = models.UserProfile.objects.get(user=request.user).bio
 	except models.UserProfile.DoesNotExist:
 		return redirect('profile')
-	print bio
 	context = dict(user = user)
 	return render(request, 'index.html', context)
 
@@ -43,21 +42,9 @@ def nope(request, user_id):
 
 @login_required
 def profile(request):
-	try:
-		profile = request.user.userprofile
-	except models.UserProfile.DoesNotExist:
-		profile = None
-	if request.method == 'POST':
-		form = forms.UserProfileForm(request.POST, request.FILES, instance=profile)
-		if form.is_valid():
-			if profile:
-				form.save()
-			else:
-				profile = form.save(commit=False)
-				profile.user = request.user
-				profile.save()
-	form = forms.UserProfileForm(instance=profile)
-	context = dict(form=form)
+	user = models.UserProfile.objects.get(user=request.user)
+	info = User.objects.get(username=request.user)
+	context = dict(info=info, user = user)
 	return render(request, "profile.html", context)
 
 def create_vote(request, user_id, vote):
