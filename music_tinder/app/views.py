@@ -14,7 +14,12 @@ def index(request):
 		user = (User.objects.exclude(id=request.user.id).exclude(uservote__voter=request.user).order_by('?')[0])
 	except IndexError:
 		user = None
-	profile = (User.objects.get(id=request.user.id))
+	
+	try:
+		bio = models.UserProfile.objects.get(user=request.user).bio
+	except models.UserProfile.DoesNotExist:
+		return redirect('profile')
+	print bio
 	context = dict(user = user)
 	return render(request, 'index.html', context)
 
