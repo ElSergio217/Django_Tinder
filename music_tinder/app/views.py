@@ -7,6 +7,7 @@ from models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
 
 @login_required
 def index(request):
@@ -42,8 +43,40 @@ def nope(request, user_id):
 
 @login_required
 def profile(request):
-	user = models.UserProfile.objects.get(user=request.user)
 	info = User.objects.get(username=request.user)
+	user = models.UserProfile.objects.get(user=request.user)
+	name = info.first_name
+	last = info.last_name
+	email = info.email
+	bio = user.bio
+	if request.method == 'POST':
+		form = UserCreationForm(data=request.POST)
+		if form.is_valid:
+			if request.POST['first_name'] != name:
+	 			info.first_name = request.POST['first_name']
+	 		else:
+	 			info.name = name
+
+			if request.POST['last_name'] != last:
+				info.last_name = request.POST['last_name']
+			else:
+				info.last = last
+
+			if request.POST['email'] != email:
+				info.email = request.POST['email']
+			else:
+				info.email = email
+
+			if request.POST['bio'] != bio:
+				user.bio = request.POST['bio']
+			else:
+				user.bio = bio
+
+			if info.check_password(request.POST['password']) ==True:
+				if request.POST['new_password'] != "":
+					info.set_password(request.POST['new_password'])
+			info.save()
+			user.save()
 	context = dict(info=info, user = user)
 	return render(request, "profile.html", context)
 
