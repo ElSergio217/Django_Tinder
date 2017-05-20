@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+import os
 
 @login_required
 def index(request):
@@ -49,6 +50,7 @@ def profile(request):
 	last = info.last_name
 	email = info.email
 	bio = user.bio
+	print os.environ['AWS_ID']
 	print user.photo.url
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST, request.FILES)
@@ -81,6 +83,7 @@ def profile(request):
 					info.set_password(request.POST['new_password'])
 			info.save()
 			user.save()
+
 	context = dict(info=info, user = user)
 	return render(request, "profile.html", context)
 

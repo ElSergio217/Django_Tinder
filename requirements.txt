@@ -1,5 +1,7 @@
 appdirs==1.4.3
+boto==2.46.1
 Django==1.11.1
+django-storages==1.5.2
 olefile==0.44
 packaging==16.8
 Pillow==4.1.1

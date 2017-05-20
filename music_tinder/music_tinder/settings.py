@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'registration',
     'app',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
+
+AWS_STORAGE_BUCKET_NAME = 'faketinder'
+AWS_ACCESS_KEY_ID = os.environ['AWS_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_KEY']
+AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME
+
+MEDIAFILES_LOCATION = 'media'
+
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+AWS_HEADERS = {
+    'Access-Control-Allow_Origin' : '*'
+}
