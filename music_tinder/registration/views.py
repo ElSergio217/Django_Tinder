@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def register(request):
+	if request.user.is_authenticated():
+		return redirect('index')
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
 		if form.is_valid():

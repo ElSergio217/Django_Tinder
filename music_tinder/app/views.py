@@ -49,8 +49,9 @@ def profile(request):
 	last = info.last_name
 	email = info.email
 	bio = user.bio
+	print user.photo.url
 	if request.method == 'POST':
-		form = UserCreationForm(data=request.POST)
+		form = UserCreationForm(request.POST, request.FILES)
 		if form.is_valid:
 			if request.POST['first_name'] != name:
 	 			info.first_name = request.POST['first_name']
@@ -71,6 +72,9 @@ def profile(request):
 				user.bio = request.POST['bio']
 			else:
 				user.bio = bio
+			if len(request.FILES) != 0:
+				user.photo.delete()
+				user.photo = request.FILES['image']
 
 			if info.check_password(request.POST['password']) ==True:
 				if request.POST['new_password'] != "":

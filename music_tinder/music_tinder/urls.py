@@ -19,8 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from registration import views as rg
 from app import views as ap
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    url(r'^login/',auth_views.LoginView.as_view(redirect_authenticated_user=True),name='login'),
     url(r'^register/', rg.register, name='register'),
     url(r'^$', ap.index, name='index'),
     url(r'^profile/$', ap.profile, name='profile'),

@@ -3,14 +3,16 @@
 <h1>Profile</h1>
 
   {% csrf_token %}
-  <img src="{{ user.photo }}">
+  <img src="{{ user.photo.url }}"><br>
   {{ info.username }}<br>
 
 <div class="container">
     <form class="form-signin" id='profile_form' method="POST" action="{% url "profile" %}" enctype='multipart/form-data'>
+          {% csrf_token %}
+    <p>
+        Profile Image: <input id="id_image" type="file" class="" name="image">
+    </p>
       <p><label for="id_bio">Bio:</label> <textarea name="bio" id="id_bio" maxlength="254">{{user.bio}}</textarea></p>
-      <h3 class="form-signin-heading">Edit Profile</h3>
-      {% csrf_token %}
       <p><label for="id_email">Email address:</label> <input id="id_email" maxlength="254" name="email" type="email" value="{{info.email}}"></p>
       <p><label for="id_first_name">First name:</label> <input id="id_first_name" maxlength="30" name="first_name" type="text" value="{{info.first_name}}"></p>
       <p><label for="id_last_name">Last name:</label> <input id="id_last_name" maxlength="30" name="last_name" type="text" value="{{info.last_name}}"></p>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="{% url "login" %}" method="post">
+<form action="{% url 'login' %}" method="post">
   {% csrf_token %}
   <h2>Login</h2>
   {{ form.as_p }}
