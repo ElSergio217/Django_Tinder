@@ -1,10 +1,12 @@
 appdirs==1.4.3
 boto==2.46.1
 Django==1.11.1
+django-pyodbc-azure==1.11.0.0
 django-storages==1.5.2
 olefile==0.44
 packaging==16.8
 Pillow==4.1.1
+pyodbc==4.0.16
 pyparsing==2.2.0
 pytz==2017.2
 six==1.10.0

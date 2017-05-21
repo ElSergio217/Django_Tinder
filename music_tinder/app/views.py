@@ -16,10 +16,11 @@ def index(request):
 		user = (User.objects.exclude(id=request.user.id).exclude(uservote__voter=request.user).order_by('?')[0])
 	except IndexError:
 		user = None
-	
+
 	try:
 		bio = models.UserProfile.objects.get(user=request.user).bio
 	except models.UserProfile.DoesNotExist:
+		create = UserProfile.objects.get_or_create(user = request.user)
 		return redirect('profile')
 	context = dict(user = user)
 	return render(request, 'index.html', context)
@@ -50,8 +51,7 @@ def profile(request):
 	last = info.last_name
 	email = info.email
 	bio = user.bio
-	print os.environ['AWS_ID']
-	print user.photo.url
+	print user.photo
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST, request.FILES)
 		if form.is_valid:
@@ -83,7 +83,6 @@ def profile(request):
 					info.set_password(request.POST['new_password'])
 			info.save()
 			user.save()
-
 	context = dict(info=info, user = user)
 	return render(request, "profile.html", context)
 
