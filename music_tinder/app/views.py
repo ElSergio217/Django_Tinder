@@ -75,7 +75,6 @@ def profile(request):
 			else:
 				user.bio = bio
 			if len(request.FILES) != 0:
-				user.photo.delete()
 				user.photo = request.FILES['image']
 
 			if info.check_password(request.POST['password']) ==True:
