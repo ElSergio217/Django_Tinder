@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
+
+DATABASES = {'default': dj_database_url.config()}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +28,7 @@ SECRET_KEY = 'u)-vf#0bv3!3)g-58(pox4_^-o$m8#5%idk3bmegowsimy%6)l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'localhost']
 
 
 # Application definition
@@ -76,19 +79,10 @@ WSGI_APPLICATION = 'music_tinder.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'Tinder',
-        'USER': os.environ['azure_user'],
-        'PASSWORD': os.environ['azure_password'],
-        'HOST': os.environ['azure_host'],
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'SQL Server Native Client 11.0',
-            'MARS_Connection': 'True',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
