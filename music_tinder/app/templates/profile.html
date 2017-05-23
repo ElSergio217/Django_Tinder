@@ -1,27 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Profile</h1>
 
-  {% csrf_token %}
-  <img src="{{ user.photo.url }}"><br>
-  {{ info.username }}<br>
-
-<div class="container">
-    <form class="form-signin" id='profile_form' method="POST" action="{% url "profile" %}" enctype='multipart/form-data'>
-          {% csrf_token %}
-    <p>
-        Profile Image: <input id="id_image" type="file" class="" name="image">
-    </p>
-      <p><label for="id_bio">Bio:</label> <textarea name="bio" id="id_bio" maxlength="254">{{user.bio}}</textarea></p>
-      <p><label for="id_email">Email address:</label> <input id="id_email" maxlength="254" name="email" type="email" value="{{info.email}}"></p>
-      <p><label for="id_first_name">First name:</label> <input id="id_first_name" maxlength="30" name="first_name" type="text" value="{{info.first_name}}"></p>
-      <p><label for="id_last_name">Last name:</label> <input id="id_last_name" maxlength="30" name="last_name" type="text" value="{{info.last_name}}"></p>
-      </br>
-      <h3 class="form-signin-heading">Change Password</h3>
-      <p><label for="id_password">Password:</label> <input id="id_password" maxlength="30" name="password" type="password"></p>
-      <p><label for="id_new_password">New Password:</label> <input id="id_new_password" maxlength="30" name="new_password" type="password"></p>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Save</button>
-    </form>
+<form class="form-signin" id='profile_form' method="POST" action="{% url "profile" %}" enctype='multipart/form-data'>
+{% csrf_token %}
+    <div class="tile is-ancestor">
+        <div class="tile is-4 is-vertical is-parent">
+            <div class="tile is-child box">
+                <p>{{ info.username }}</p>
+                <img src="{{ user.photo.url }}">
+                <div class="column is-12">
+                    <p>Profile Image: <input id="id_image" type="file" class="" name="image"></p>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-parent">
+            <div class="tile is-child box">
+                <div class="columns">
+                    <div class="column is-6">
+                        <label class="label" for="id_first_name">First name:</label> <input class="input is-focused" id="id_first_name" maxlength="30" name="first_name" type="text" value="{{info.first_name}}">
+                    </div>
+                    <div class="column is-6">
+                        <p><label class="label" for="id_last_name">Last name:</label> <input class="input is-focused" id="id_last_name" maxlength="30" name="last_name" type="text" value="{{info.last_name}}"></p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="id_email">Email address:</label> <input class="input is-focused" id="id_email" maxlength="254" name="email" type="email" value="{{info.email}}">
+                </div>
+                <div class="field">
+                    <label class="label" for="id_website">Website:</label> <input class="input is-focused" id="id_website" maxlength="254" name="website" type="text" value="{{user.website}}">
+                </div>
+                <div class="field">
+                    <p><label class="label" for="id_bio">Bio:</label> <textarea class="input is-focused" rows="1" name="bio" id="id_bio" maxlength="254">{{user.bio}}</textarea></p>
+                </div>
+                <br>
+                <h2>Change Password:</h2>
+                <div class="columns">
+                    <div class="column is-6">
+                        <div class="field">
+                            <p><label class="label" for="id_password">Password:</label> <input class="input is-focused" id="id_password" maxlength="30" name="password" type="password"></p>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="field">
+                            <p><label class="label" for="id_new_password">New Password:</label> <input class="input is-focused" id="id_new_password" maxlength="30" name="new_password" type="password"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Save</button>
+</form>
 
 {% endblock %}

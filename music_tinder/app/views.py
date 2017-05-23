@@ -51,7 +51,7 @@ def profile(request):
 	last = info.last_name
 	email = info.email
 	bio = user.bio
-	print user.photo
+	website = user.website
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST, request.FILES)
 		if form.is_valid:
@@ -74,6 +74,12 @@ def profile(request):
 				user.bio = request.POST['bio']
 			else:
 				user.bio = bio
+
+			if request.POST['website'] != website:
+				user.website = request.POST['website']
+			else:
+				user.bio = bio
+
 			if len(request.FILES) != 0:
 				user.photo = request.FILES['image']
 

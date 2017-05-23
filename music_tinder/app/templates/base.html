@@ -1,22 +1,68 @@
 {% load staticfiles %}
 <!doctype html>
 <html>
-<head>
-  <title></title>
-</head>
-<body>
-<div class="page">
-  <div class="app">
-    <h1><a href="{% url 'index' %}">Bootleg Tinder</a></h1>
-    <a href="{% url 'profile' %}">Profile</a>
-    <a href="{% url 'logout' %}?next=/">Logout</a>
+	<head>
+	  	<meta charset="utf-8">
+	  	<title>CSS only Bulma nav bar</title>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
+	 	<style>
+		    @media screen and (max-width: 768px) {
+		      #menu-toggle:checked + .nav-menu {
+		        display: block;
+		      }
+		    }
+		    textarea
+			{
+			  	border:1px solid #999999;
+			  	width:100%;
+			  	margin:5px 0;
+			  	padding:3px;
+			}
+			.nav {
+			    position: fixed; 
+			    top: 0;
+			    width: 100%;
+			}
+			.input, input{
+				background-color: transparent;
+				border: none;
+				border-bottom: 2px solid #ccc;
+				outline: 0;
+				height: 2.5rem;
+				font-size: 1rem;
+				box-shadow: none;
+				width: 100%;
+			}
+			label{
+				font-weight: bold;
+			}
+	  	</style>
+	</head>
+	<body>
+		<nav class="nav has-shadow">
+			<div class="container">
+				<div class="nav-left">
+					<a href="{% url 'index' %}" class="nav-item">Bootleg Tinder</a>
+				</div>
 
-    {% if not user.is_authenticated %}
-    	<p>Hello {{ request.user }}</p>
-    	
-    {% endif %}
-    {% block content %}{% endblock %}
-  </div>
-</div>
-</body>
+				<label for="menu-toggle" class="nav-toggle">
+					<span></span>
+					<span></span>
+					<span></span>
+				</label>
+				<input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+				<div class="nav-right nav-menu">
+					<a href="{% url 'profile' %}" class="nav-item">Profile</a>
+					<a href="{% url 'logout' %}?next=/" class="nav-item">Logout</a>
+				</div>
+			</div>
+		</nav>
+		<br>
+		<br>
+		<div class="container column is-10 is-offset-1">
+			{% block content %}{% endblock %}
+		</div>
+	</body>
 </html>

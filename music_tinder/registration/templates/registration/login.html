@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="{% url 'login' %}" method="post">
-  {% csrf_token %}
-  <h2>Login</h2>
-  {{ form.as_p }}
-  <p>
-    <button type="submit">
-      Login
-    </button>
-  </p>
-  <a href="{% url 'register' %}">Register</a>
+<div class="container content is-child box column is-4 is-offset-4">
+	<form action="{% url 'login' %}" method="post">
+		{% csrf_token %}
+		<h1 class="has-text-centered">Login</h1>
+		{% if form.errors %}
+			<p>Password or username incorrect</p>
+		{% endif %}
+		<p><label for="id_username">Username:</label> <input class="input" name="username" autofocus="" required="" id="id_username" maxlength="254" type="text"></p>
+		<br>
+		<p><label for="id_password">Password:</label> <input class="input" name="password" required="" id="id_password" type="password"></p>
+		<p><button class="button is-primary" type="submit">Login</button></p>
+		<a href="{% url 'register' %}">Dont have an account? Register now!</a>
+	</form>
+</div>
 {% endblock %}

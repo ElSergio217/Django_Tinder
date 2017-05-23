@@ -1,20 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="tindero">
-  {% if user %}
-  <img src="{{ user.userprofile.photo.url }}">
-  <div class="name">
-    {{ user.username }}
-  </div>
-  <div class="bio">{{ user.userprofile.bio }}</div>
-  <a href="{% url "nice" user_id=user.id %}">
-    Nice
-  </a>
-  <a href="{% url "nope" user_id=user.id %}">
-    Nope
-  </a>
-  {% else %}
-  Wait for more people to join!
+    {% if user %}
+        <div class="container content is-child box column is-4 is-offset-4">
+            <img src="{{ user.userprofile.photo.url }}">
+            <p style="font-size: 25px">{{user.username}}</p>
+            <p><a href="{{ user.userprofile.website}}">{{ user.userprofile.website}}</a></p>
+            <b>Bio:</b>
+            <p>{{user.userprofile.bio}}</p>
+            <div class="columns has-text-centered">
+                <div class="column is-half">
+                    <a href="{% url 'nope' user_id=user.id %}" class="button is-danger" style="width: 100%"> Skip </a>
+                </div>
+                <div class="column">
+                    <a href="{% url 'nice' user_id=user.id %}" class="button is-primary" style="width: 100%"> Connect </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Wait for more people to join!</p>
+        <p>Help us get more user. Share this link to your friends! <a href="http://localhost:8000/">http://localhost:8000/</a></p>
   {% endif %}
 </div>
 {% endblock %}
