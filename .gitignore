@@ -1,3 +1,4 @@
 *.pyc
 /env
 /music_tinder/media
+/music_tinder/git
