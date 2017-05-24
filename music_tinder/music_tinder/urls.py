@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^register/', rg.register, name='register'),
     url(r'^$', ap.index, name='index'),
     url(r'^profile/$', ap.profile, name='profile'),
+    url(r'^network/$', ap.network, name='network'),
     url(r'^nice/(?P<user_id>\d+)$', ap.nice, name='nice'),
 	url(r'^nope/(?P<user_id>\d+)$', ap.nope, name='nope'),
 	url(r'^', include('django.contrib.auth.urls')),

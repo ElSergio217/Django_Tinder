@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 	photo = models.ImageField(upload_to='photos', default="photos/avatar-1577909_640.png")
 	bio = models.TextField(default="")
 	website = models.URLField(default="")
+	friends = models.ManyToManyField(User, related_name='+')
 
 	def __unicode__(self):
 		return self.user.get_full_name()

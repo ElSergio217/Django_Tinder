@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 import os
+from django.core import serializers
+import json
 
 @login_required
 def index(request):
@@ -22,9 +24,10 @@ def index(request):
 	except models.UserProfile.DoesNotExist:
 		create = UserProfile.objects.get_or_create(user = request.user)
 		return redirect('profile')
-	context = dict(user = user)
-	return render(request, 'index.html', context)
 
+	friend = models.UserProfile.objects.get(user=request.user).friends.all()
+	context = dict(user = user, friend = friend)
+	return render(request, 'index.html', context)
 
 def create_vote(request, user_id, vote):
 	user = User.objects.get(pk=user_id)
@@ -104,7 +107,19 @@ def create_vote(request, user_id, vote):
 			voter=user,
 			vote=True
 		).count():
+			npm = models.UserProfile.objects.get(user=request.user)
+			npm.friends.add(User.objects.get(username=user.username))
+
+			npm = models.UserProfile.objects.get(user=user)
+			npm.friends.add(User.objects.get(username=request.user))
+
+			npm.save()
 			return render(request, 'match.html', dict(
 				match=user,
 			))
 	return redirect('index')
+
+def network(request):
+	friend = models.UserProfile.objects.get(user=request.user).friends.all()
+	context = dict(friend = friend)
+	return render(request, 'network.html', context)

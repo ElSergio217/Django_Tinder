@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for item in friend %}
+    <div class="container content is-child box column is-6 is-offset-3">
+	    <table class="table">
+	       	<thead>
+	       		<tbody>
+	       			<td><img width="100" src="{{ item.userprofile.photo.url }}"></td>
+	       			<td>{{item.userprofile.user}}</td>
+	       			<td>{{item.email}}</td>
+	       		</tbody>
+	       	</thead>
+	    </table>
+    </div>
+{% endfor %}
+{% endblock %}
