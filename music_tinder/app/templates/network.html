@@ -2,16 +2,23 @@
 {% block content %}
 
 {% for item in friend %}
-    <div class="container content is-child box column is-6 is-offset-3">
-	    <table class="table">
-	       	<thead>
-	       		<tbody>
-	       			<td><img width="100" src="{{ item.userprofile.photo.url }}"></td>
-	       			<td>{{item.userprofile.user}}</td>
-	       			<td>{{item.email}}</td>
-	       		</tbody>
-	       	</thead>
-	    </table>
-    </div>
+<div class="container content is-child box column is-4 is-offset-4">	    
+	<article class="media">
+	<figure class="media-left">
+		<p class="image is-64x64">
+		<img src="{{ item.userprofile.photo.url }}">
+		</p>
+	</figure>
+	<div class="media-content">
+		<div class="content">
+			<p>
+				<strong>{{item.first_name}} {{item.last_name}}</strong> <small>@{{item.userprofile.user}}</small>
+				<br>
+				<a href="mailto:{{item.email}}">{{item.email}}</a>
+			</p>
+		</div>
+	</div>
+	</article>
+</div>
 {% endfor %}
 {% endblock %}
