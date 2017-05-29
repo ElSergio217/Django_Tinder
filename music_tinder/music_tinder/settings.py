@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import dj_database_url
-
-DATABASES = {'default': dj_database_url.config()}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'u)-vf#0bv3!3)g-58(pox4_^-o$m8#5%idk3bmegowsimy%6)l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'localhost']
 
@@ -86,6 +83,9 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -123,24 +123,38 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'index'
+#STATIC_URL = '/static/'
+#MEDIA_URL = '/media/'
 
 AWS_STORAGE_BUCKET_NAME = 'faketinder'
 AWS_ACCESS_KEY_ID = os.environ['AWS_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_KEY']
 AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME
 
+STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage' 
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage' 
 
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 AWS_HEADERS = {
     'Access-Control-Allow_Origin' : '*'
 }
+
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIR = (
+    STATIC_PATH,
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+
+
