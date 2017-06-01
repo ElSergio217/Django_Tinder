@@ -3,22 +3,57 @@
 
 {% for item in friend %}
 <div class="container content is-child box column is-4 is-offset-4">	    
-	<article class="media">
-	<figure class="media-left">
-		<p class="image is-64x64">
-		<img src="{{ item.userprofile.photo.url }}">
-		</p>
-	</figure>
-	<div class="media-content">
-		<div class="content">
-			<p>
-				<strong>{{item.first_name}} {{item.last_name}}</strong> <small>@{{item.userprofile.user}}</small>
-				<br>
-				<a href="mailto:{{item.email}}">{{item.email}}</a>
-			</p>
-		</div>
-	</div>
-	</article>
+	<a class="modal-button" data-target="#modal_{{item.userprofile.user}}">
+		<article class="media">
+			<figure class="media-left">
+				<p class="image is-48x48">
+					<img src="{{ item.userprofile.photo.url }}">
+				</p>
+			</figure>
+			<div class="media-content">
+				<div class="content">
+					<p class="title is-4">{{item.first_name}} {{item.last_name}}</p>
+					<p class="subtitle is-6">@{{item.userprofile.user}}</p>
+				</div>
+			</div>
+		</article>
+	</a>
 </div>
+
+<div id="modal_{{item.userprofile.user}}" class="modal">
+	<div class="modal-background"></div>
+	<button class="modal-close"></button>
+	<div class="modal-card">
+		<section class="modal-card-body">
+			<div class="tile is-ancestor">
+				<div class="tile is-4 is-vertical is-parent">
+					<div class="tile is-child box">
+						<img src="{{ item.userprofile.photo.url }}">
+					</div>
+				</div>
+				<div class="tile is-parent">
+					<div class="tile is-child box">
+						<div class="media-content">
+							<div class="content">
+								<p class="title is-4">{{item.first_name}} {{item.last_name}}</p>
+								<p class="subtitle is-6">@{{item.userprofile.user}}</p>
+							</div>
+						</div>
+						<div class="field">
+							<a href="{{ item.userprofile.website }}"> {{ item.userprofile.website }}</a>
+						</div>
+						<div class="field">
+							<p>
+								<label class="label" for="id_bio">Bio:</label> 
+								{{ item.userprofile.bio }} {{item}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</section>
+	</div>
+</div>
+
 {% endfor %}
 {% endblock %}

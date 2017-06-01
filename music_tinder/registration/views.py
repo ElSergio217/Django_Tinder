@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-
 # Create your views here.
 def register(request):
 	if request.user.is_authenticated():

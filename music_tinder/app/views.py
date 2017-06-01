@@ -18,7 +18,7 @@ def index(request):
 		user = (User.objects.exclude(id=request.user.id).exclude(uservote__voter=request.user).order_by('?')[0])
 	except IndexError:
 		user = None
-
+	print User.username
 	try:
 		bio = models.UserProfile.objects.get(user=request.user).bio
 	except models.UserProfile.DoesNotExist:
